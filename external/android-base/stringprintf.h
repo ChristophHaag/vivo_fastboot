@@ -17,6 +17,7 @@
 #define BASE_STRINGPRINTF_H
 #include <stdarg.h>
 #include <string>
+#include <cstring>
 namespace android {
 namespace base {
 // These printf-like functions are implemented in terms of vsnprintf, so they
