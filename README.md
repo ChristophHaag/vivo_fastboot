@@ -35,3 +35,15 @@ Now type make within fastboot directory to compile the fastboot binary.
 
 if you get compile error, it's most likely due to toolchain, edit makefile to point to your toolchain.
 If you want to add support for more commands, just search "vivo_bsp" in fastboot.c, & replace it with your desired commmand.
+
+# This Fork
+
+This fork includes dependencies in the external/ directory.
+
+For a list of dependencies and where they come from, check external/README.md.
+
+A meson.build was added. No special toolchain required, disregard the original build instructions. System depencies:
+
+* pcre
+* zlib/libz
+* [libselinux](https://github.com/SELinuxProject/selinux),
