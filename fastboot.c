@@ -544,7 +544,7 @@ static struct sparse_file **load_sparse_files(int fd, int max_size)
     int files;
     struct sparse_file **out_s;
 
-    s = sparse_file_import_auto(fd, false);
+    s = sparse_file_import_auto(fd, false, false);
     if (!s) {
         die("cannot sparse read file\n");
     }
