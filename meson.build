@@ -4,14 +4,23 @@ project('vivo_fastboot', 'cpp',
     default_options : [ 'warning_level=3', 'buildtype=debugoptimized', 'cpp_std=c++11' ]
 )
 
+external_includes = [
+	include_directories('./external/ext4_utils/include/ext4_utils'),
+	include_directories('./external/mkbootimg'),
+	include_directories('./external/libsparse/include'),
+	include_directories('./external/libzipfile/include'),
+	include_directories('./external'),
+	#include_directories('./external/ext4_utils'),
+]
+
 sources = [
 	'bootimg.c',
 	'engine.c',
 	'fastboot.c',
 	'protocol.c',
-	'usbtest.c',
 	'usb_linux.c',
 	'util_linux.c',
+	#'usbtest.c',
 	#'usb_osx.c',
 	#'util_osx.c',
 	#'usb_windows.c',
@@ -31,17 +40,22 @@ libsparse_sources = [
 	'./external/libsparse/sparse_read.cpp',
 ]
 
-external_includes = [
-	include_directories('./external/ext4_utils/include/ext4_utils'),
-	include_directories('./external/mkbootimg'),
-	include_directories('./external/libsparse/include'),
-	include_directories('./external/libzipfile/include'),
-	include_directories('./external'),
-	#include_directories('./external/ext4_utils'),
+libzipfile_sources = [
+	'./external/libzipfile/zipfile.c',
 ]
 
+libsparse = static_library('libsparse',
+	libsparse_sources,
+	include_directories: external_includes,
+)
+
+libzipfile = static_library('libzipfile',
+	libzipfile_sources,
+	include_directories: external_includes,
+)
 
 executable('vivo_fastboot',
-	sources + libsparse_sources,
+	sources,
 	include_directories: external_includes,
+	link_with: [ libsparse, libzipfile ]
 )
